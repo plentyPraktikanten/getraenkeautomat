@@ -29,6 +29,29 @@ public class SodaMachine {
     private Bottle bottleOrdered = null;
 
     /**
+     * Used to update the view.
+     */
+    private SodaMachineUpdateHandler updateHandler;
+
+    /**
+     * Starts the soda machine.
+     */
+    public void start() {
+
+        this.updateOrder();
+        this.updateDueMoney();
+
+    }
+
+    /**
+     *
+     * @param updateHandler Used to update the view.
+     */
+    public void setUpdateHandler(SodaMachineUpdateHandler updateHandler) {
+        this.updateHandler = updateHandler;
+    }
+
+    /**
      * @return The inventory for the bottles. It manages the count of bottles in the soda machine.
      */
     public Inventory getInventory() {
@@ -40,6 +63,8 @@ public class SodaMachine {
      */
     public void orderBottle(Bottle bottle) {
         this.bottleOrdered = bottle;
+        this.updateOrder();
+        this.updateDueMoney();
     }
 
     /**
@@ -54,6 +79,7 @@ public class SodaMachine {
      */
     public void insertCoin(Coin coin) {
         this.coins.add(coin);
+        this.updateDueMoney();
     }
 
     /**
@@ -67,5 +93,22 @@ public class SodaMachine {
         }
 
         return result;
+    }
+
+    private void updateDueMoney() {
+
+        Bottle bottleOrdered = this.getBottleOrdered();
+
+        double dueMoney = 0.0;
+
+        if(bottleOrdered != null) {
+            dueMoney = bottleOrdered.getPrice() - this.getPayedValue();
+        }
+
+        this.updateHandler.onCoinUpdate(this.getBottleOrdered(), dueMoney, this.getPayedValue());
+    }
+
+    private void updateOrder() {
+        this.updateHandler.onOrderUpdate(this.getBottleOrdered());
     }
 }
