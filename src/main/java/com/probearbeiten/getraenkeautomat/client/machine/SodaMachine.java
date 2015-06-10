@@ -1,5 +1,6 @@
 package com.probearbeiten.getraenkeautomat.client.machine;
 
+import com.google.gwt.i18n.client.NumberFormat;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.Bottle;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.Coin;
@@ -101,11 +102,18 @@ public class SodaMachine {
 
         double dueMoney = 0.0;
 
+
         if(bottleOrdered != null) {
             dueMoney = bottleOrdered.getPrice() - this.getPayedValue();
         }
 
-        this.updateHandler.onCoinUpdate(this.getBottleOrdered(), dueMoney, this.getPayedValue());
+        if(dueMoney < 0){
+            dueMoney -= dueMoney;
+        }
+
+        String value = NumberFormat.getFormat("00.00").format(dueMoney);
+
+        this.updateHandler.onCoinUpdate(this.getBottleOrdered(), Double.valueOf(value), this.getPayedValue());
     }
 
     private void updateOrder() {
