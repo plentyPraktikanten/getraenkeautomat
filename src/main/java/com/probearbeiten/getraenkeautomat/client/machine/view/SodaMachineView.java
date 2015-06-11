@@ -14,5 +14,4 @@ public interface SodaMachineView {
      * @return The handler for updates on the model.
      */
     SodaMachineUpdateHandler getUpdateHandler();
-
 }

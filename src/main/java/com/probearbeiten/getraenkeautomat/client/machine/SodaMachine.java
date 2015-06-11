@@ -113,10 +113,22 @@ public class SodaMachine {
 
         String value = NumberFormat.getFormat("00.00").format(dueMoney);
 
+
         this.updateHandler.onCoinUpdate(this.getBottleOrdered(), Double.valueOf(value), this.getPayedValue());
     }
 
     private void updateOrder() {
         this.updateHandler.onOrderUpdate(this.getBottleOrdered());
     }
+
+
+
+
+    public void reset() {
+        this.coins.clear();
+        this.bottleOrdered = null;
+        this.start();
+    }
+
+
 }
