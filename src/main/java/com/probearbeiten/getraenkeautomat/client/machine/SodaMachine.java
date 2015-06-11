@@ -107,16 +107,16 @@ public class SodaMachine {
             dueMoney = bottleOrdered.getPrice() - this.getPayedValue();
         }
 
-        if(dueMoney < 0){
+        /*if(dueMoney < 0){
             dueMoney -= dueMoney;
-        }
+        }*/
 
         String value = NumberFormat.getFormat("00.00").format(dueMoney);
 
 
         this.updateHandler.onCoinUpdate(this.getBottleOrdered(), Double.valueOf(value), this.getPayedValue());
 
-        this.updateHandler.onChaingeUpdate(dueMoney, this.getPayedValue());
+        this.updateHandler.onChaingeUpdate(dueMoney);
     }
 
     private void updateOrder() {

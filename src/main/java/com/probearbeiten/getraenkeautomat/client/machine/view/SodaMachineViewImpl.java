@@ -27,7 +27,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private Label changeLabel;
 
     //constructor
-    public SodaMachineViewImpl(SodaMachine sodaMachine) {
+    public SodaMachineViewImpl(final SodaMachine sodaMachine) {
 
         assert sodaMachine != null : "Soda machine has to be initialized!";
         this.sodaMachine = sodaMachine;
@@ -118,7 +118,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                             " (" + bottle.getPrice() + " €)");
                 } else {
                     orderLabel.setText("Getränk: Bitte wählen …");
-
                 }
             }
 
@@ -130,12 +129,22 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
             }
 
             @Override
-            public void onChaingeUpdate(double dueMoney, double payedMoney){
+            public void onChaingeUpdate(double dueMoney){
 
-                changeLabel.setText("Wechselgeld: " + String.valueOf(payedMoney+dueMoney) + " €");
+                if(dueMoney < 0){
 
+                    double value = Math.round((sodaMachine.getPayedValue() - sodaMachine.getBottleOrdered().getPrice())*100.0)/100.0;
+
+                    changeLabel.setText("Wechselgeld: " + String.valueOf(value) + " €");
+                    dueMoneyLabel.setText("Restbetrag: 0 €");
+
+                } else {
+
+
+                    changeLabel.setText("Wechselgeld: 0 €");
+
+                }
             }
-
         };
     }
 
@@ -155,12 +164,16 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //add click handler to button
         button.addClickHandler(
-                new ClickHandler() {
-                    @Override
-                    public void onClick(ClickEvent clickEvent) {
-                        //TODO Clear orderLabel and reset dueMoneyLabel
+            new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                    if (sodaMachine.getPayedValue() >= sodaMachine.getBottleOrdered().getPrice()){
+
+                        sodaMachine.reset();
+
                     }
                 }
+            }
         );
 
         return button;
