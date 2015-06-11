@@ -1,6 +1,9 @@
 package com.probearbeiten.getraenkeautomat.client.machine;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.thirdparty.javascript.jscomp.parsing.parser.util.Timer;
+import com.google.gwt.user.client.Window;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.Bottle;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.Coin;
@@ -129,6 +132,5 @@ public class SodaMachine {
         this.bottleOrdered = null;
         this.start();
     }
-
 
 }

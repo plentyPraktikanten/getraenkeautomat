@@ -151,16 +151,18 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
                         // TODO check if there is a bottle left
                         // sodaMachine.getInventory()...
-
                         sodaMachine.getInventory();
                         sodaMachine.reset();
-                        //order cola bottle on button click
-                        sodaMachine.orderBottle(new ColaBottle());
-                    }
-                });
 
-        //return the previous created button
-        return button;
+                        sodaMachine.orderBottle(new FantaBottle());
+                    }
+                    });
+
+                    return button;
+                }
+
+
+    private void updateAvailable() {
     }
 
     /**
