@@ -9,6 +9,8 @@ import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandle
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
 import com.probearbeiten.getraenkeautomat.client.money.*;
 
+import java.util.Iterator;
+
 /**
  * Implementation of {@link SodaMachineView}.
  *
@@ -52,7 +54,16 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //WICHTIG: display panel wird dem mainpanel geadded
         mainPanel.add(displayPanel);
+//
+        //Create VerticalPanel for take button
+        VerticalPanel takePanel = new VerticalPanel();
 
+        //create and add take button
+        takePanel.add(this.createTakeButton());
+
+        //WICHTIG: takePanel wird dem mainpanel geadded
+        mainPanel.add(takePanel);
+//
         // Display bottles that can be selected by the customer
 
         //create panel for bottles
@@ -117,8 +128,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
             }
 
-            public void onChaingeUpdate(){
-                
+            @Override
+            public void onChaingeUpdate(double dueMoney, double payedMoney){
+
+                changeLabel.setText("Wechselgeld: " + String.valueOf(payedMoney+dueMoney) + " €");
+
             }
 
         };
@@ -132,6 +146,23 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private static void borderize(IsWidget widget) {
         widget.asWidget().getElement().getStyle().setBorderWidth(3, Style.Unit.PX);
         widget.asWidget().getElement().getStyle().setMargin(6, Style.Unit.PX);
+    }
+
+    private IsWidget createTakeButton() {
+        //create take button
+        Button button = new Button("Getränk und Wechselgeld nehmen");
+
+        //add click handler to button
+        button.addClickHandler(
+                new ClickHandler() {
+                    @Override
+                    public void onClick(ClickEvent clickEvent) {
+                        //TODO Clear orderLabel and reset dueMoneyLabel
+                    }
+                }
+        );
+
+        return button;
     }
 
     /**
