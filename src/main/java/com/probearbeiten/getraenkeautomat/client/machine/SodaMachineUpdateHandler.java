@@ -15,7 +15,6 @@ public interface SodaMachineUpdateHandler {
      * @param bottle The bottle that has been ordered.
      */
     public void onOrderUpdate(Bottle bottle);
-
     /**
      *
      * @param bottle The bottled that has been ordered.

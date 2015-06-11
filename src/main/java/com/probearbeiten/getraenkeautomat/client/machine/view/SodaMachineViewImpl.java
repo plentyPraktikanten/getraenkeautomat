@@ -1,5 +1,6 @@
 package com.probearbeiten.getraenkeautomat.client.machine.view;
 
+import com.google.gwt.dev.shell.BrowserChannel;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -101,7 +102,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         mainPanel.add(moneyPanel);
 
 
-
         // Set widget for this composite
 
         this.initWidget(mainPanel);
@@ -114,10 +114,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
             @Override
             public void onOrderUpdate(Bottle bottle) {
                 if (bottle != null) {
-                    orderLabel.setText(    "Getränk ausgewählt: " + bottle.getName() +
+                    orderLabel.setText("Getränk ausgewählt: " + bottle.getName() +
                             " (" + bottle.getPrice() + " €)");
                 } else {
                     orderLabel.setText("Getränk: Bitte wählen …");
+
                 }
             }
 
@@ -166,7 +167,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     /**
-     *
      * @return Button for Cola
      */
     private IsWidget createColaButton() {
@@ -176,8 +176,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //add click handler to button
         button.addClickHandler(
-                new ClickHandler()
-                {
+                new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
@@ -185,7 +184,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                         // sodaMachine.getInventory()...
 
                         sodaMachine.getInventory();
-
+                        sodaMachine.reset();
                         //order cola bottle on button click
                         sodaMachine.orderBottle(new ColaBottle());
                     }
@@ -196,7 +195,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     /**
-     *
      * @return Button for Fanta
      */
     private IsWidget createFantaButton() {
@@ -204,14 +202,12 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         Button button = new Button("Fanta");
 
         button.addClickHandler(
-                new ClickHandler()
-                {
+                new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
                         sodaMachine.getInventory();
-
-
+                        sodaMachine.reset();
 
                         sodaMachine.orderBottle(new FantaBottle());
                     }
@@ -220,7 +216,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-    private IsWidget createMezzoMixButton(){
+    private IsWidget createMezzoMixButton() {
         Button button = new Button("MezzoMix");
 
 
@@ -230,7 +226,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     public void onClick(ClickEvent clickEvent) {
 
                         sodaMachine.getInventory();
-
+                        sodaMachine.reset();
                         sodaMachine.orderBottle(new MezzoMixBottle());
                     }
                 });
@@ -238,7 +234,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-    private IsWidget createSpriteButton(){
+    private IsWidget createSpriteButton() {
         Button button = new Button("Sprite");
 
         button.addClickHandler(
@@ -247,7 +243,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     public void onClick(ClickEvent clickEvent) {
 
                         sodaMachine.getInventory();
-
+                        sodaMachine.reset();
                         sodaMachine.orderBottle(new SpriteBottle());
                     }
                 });
@@ -255,7 +251,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-    private IsWidget createWaterButton(){
+    private IsWidget createWaterButton() {
         Button button = new Button("Wasser");
 
         button.addClickHandler(
@@ -264,7 +260,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     public void onClick(ClickEvent clickEvent) {
 
                         sodaMachine.getInventory();
-
+                        sodaMachine.reset();
                         sodaMachine.orderBottle(new WaterBottle());
                     }
                 });
@@ -273,19 +269,25 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     /**
-     *
      * @return Button for money ejection
      */
     private IsWidget createEjectMoneyButton() {
         Button button = new Button("Abbrechen, Geld ausgeben");
 
-        // TODO
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+
+                sodaMachine.reset();
+
+            }
+        });
 
         return button;
     }
 
+
     /**
-     *
      * @return Ten cents button
      */
     private IsWidget createTenCentCoinButton() {
@@ -303,7 +305,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     /**
-     *
      * @return Twenty cents button
      */
     private IsWidget createTwentyCentCoinButton() {
@@ -320,7 +321,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-    private IsWidget createFiftyCentCoinButton(){
+    private IsWidget createFiftyCentCoinButton() {
 
         Button button = new Button(FiftyCentCoin.VALUE + " €");
 
@@ -334,7 +335,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-    private IsWidget createOneEuroCoinButton(){
+    private IsWidget createOneEuroCoinButton() {
         Button button = new Button(OneEuroCoin.VALUE + " €");
 
         button.addClickHandler(new ClickHandler() {
@@ -347,7 +348,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-    private IsWidget createTwoEuroCoinButton(){
+    private IsWidget createTwoEuroCoinButton() {
         Button button = new Button(TwoEuroCoin.VALUE + " €");
 
         button.addClickHandler(new ClickHandler() {

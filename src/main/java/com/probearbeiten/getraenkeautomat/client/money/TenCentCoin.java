@@ -5,7 +5,8 @@ package com.probearbeiten.getraenkeautomat.client.money;
  *
  * @author tegberts
  */
-public class TenCentCoin extends Coin {
+public class TenCentCoin extends Coin
+{
 
     public static double VALUE = 0.10;
 
