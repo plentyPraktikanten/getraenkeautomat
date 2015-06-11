@@ -8,6 +8,7 @@ import com.probearbeiten.getraenkeautomat.client.machine.bottle.Bottle;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.Coin;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -103,10 +104,11 @@ public class SodaMachine {
 
         Bottle bottleOrdered = this.getBottleOrdered();
 
-        double dueMoney = 0.0;
+        double dueMoney = 0;
 
 
         if(bottleOrdered != null) {
+            double x = dueMoney;
             dueMoney = bottleOrdered.getPrice() - this.getPayedValue();
         }
 
@@ -135,4 +137,12 @@ public class SodaMachine {
         this.start();
     }
 
-}
+    }
+
+
+
+
+
+
+
+

@@ -4,6 +4,7 @@ import com.google.gwt.dev.shell.BrowserChannel;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachine;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandler;
@@ -188,7 +189,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         Button button = new Button("Cola");
 
         //add click handler to button
-        button.addClickHandler(
+        HandlerRegistration handlerRegistration = button.addClickHandler(
                 new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
@@ -198,11 +199,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                         sodaMachine.getInventory();
                         sodaMachine.reset();
 
-                        sodaMachine.orderBottle(new FantaBottle());
+                        sodaMachine.orderBottle(new ColaBottle());
                     }
-                    });
+                });
 
-                    return button;
+        return button;
                 }
 
 
