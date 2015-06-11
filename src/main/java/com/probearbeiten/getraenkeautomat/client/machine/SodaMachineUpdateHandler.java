@@ -22,4 +22,6 @@ public interface SodaMachineUpdateHandler {
      * @param payedMoney The money the customer has payed until now.
      */
     public void onCoinUpdate(Bottle bottle, double dueMoney, double payedMoney);
+
+    public void  onChaingeUpdate(double dueMoney, double payedMoney);
 }

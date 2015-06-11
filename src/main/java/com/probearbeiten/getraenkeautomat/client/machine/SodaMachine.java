@@ -118,6 +118,8 @@ public class SodaMachine {
 
 
         this.updateHandler.onCoinUpdate(this.getBottleOrdered(), Double.valueOf(value), this.getPayedValue());
+
+        this.updateHandler.onChaingeUpdate(dueMoney, this.getPayedValue());
     }
 
     private void updateOrder() {
