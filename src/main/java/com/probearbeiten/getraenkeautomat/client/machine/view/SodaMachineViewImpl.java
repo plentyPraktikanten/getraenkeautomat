@@ -193,7 +193,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         Button button = new Button("Cola");
 
         //add click handler to button
-        HandlerRegistration handlerRegistration = button.addClickHandler(
+        button.addClickHandler(
                 new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
@@ -210,7 +210,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                 });
 
         return button;
-                }
+    }
 
 
     private void updateAvailable() {
@@ -387,7 +387,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                if (sodaMachine.getBottleOrdered() == null) {} else {
+                if (sodaMachine.getBottleOrdered() != null)
+                {
                     sodaMachine.insertCoin(new OneEuroCoin());
                 }
             }

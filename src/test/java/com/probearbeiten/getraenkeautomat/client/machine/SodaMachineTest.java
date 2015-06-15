@@ -29,6 +29,11 @@ public class SodaMachineTest extends TestCase {
             public void onCoinUpdate(Bottle bottle, double dueMoney, double payedMoney) {
 
             }
+
+            @Override
+            public void onChaingeUpdate(double dueMoney) {
+
+            }
         };
 
         // Setup view

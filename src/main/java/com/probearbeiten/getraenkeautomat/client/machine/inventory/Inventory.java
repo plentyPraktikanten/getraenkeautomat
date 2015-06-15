@@ -56,7 +56,7 @@ public class Inventory {
         Map.Entry<String, Integer> entry = null;
 
         for (Map.Entry<String, Integer> tempEntry : this.inventoryList.entrySet()) {
-            if (tempEntry.equals(bottleName)) {
+            if (tempEntry.getKey().equals(bottleName)) {
                 return tempEntry;
             }
         }
