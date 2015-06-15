@@ -23,5 +23,5 @@ public interface SodaMachineUpdateHandler {
      */
     public void onCoinUpdate(Bottle bottle, double dueMoney, double payedMoney);
 
-    public void  onChaingeUpdate(double dueMoney);
+    public void onChangeUpdate(double dueMoney);
 }

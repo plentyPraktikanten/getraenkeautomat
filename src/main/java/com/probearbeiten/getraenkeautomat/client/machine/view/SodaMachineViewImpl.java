@@ -132,7 +132,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
             }
 
             @Override
-            public void onChaingeUpdate(double dueMoney) {
+            public void onChangeUpdate(double dueMoney) {
 
                 if (dueMoney < 0) {
 

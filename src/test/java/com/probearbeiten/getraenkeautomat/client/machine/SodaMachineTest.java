@@ -31,7 +31,7 @@ public class SodaMachineTest extends TestCase {
             }
 
             @Override
-            public void onChaingeUpdate(double dueMoney) {
+            public void onChangeUpdate(double dueMoney) {
 
             }
         };

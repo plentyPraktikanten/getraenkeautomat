@@ -1,14 +1,10 @@
 package com.probearbeiten.getraenkeautomat.client.machine;
 
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.i18n.client.NumberFormat;
-import com.google.gwt.thirdparty.javascript.jscomp.parsing.parser.util.Timer;
-import com.google.gwt.user.client.Window;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.Bottle;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.Coin;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -121,7 +117,7 @@ public class SodaMachine {
 
         this.updateHandler.onCoinUpdate(this.getBottleOrdered(), Double.valueOf(value), this.getPayedValue());
 
-        this.updateHandler.onChaingeUpdate(dueMoney);
+        this.updateHandler.onChangeUpdate(dueMoney);
     }
 
     private void updateOrder() {
