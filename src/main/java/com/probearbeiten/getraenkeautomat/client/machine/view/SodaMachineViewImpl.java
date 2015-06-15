@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.*;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachine;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandler;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
+import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.*;
 
 import java.util.Iterator;
@@ -42,9 +43,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         VerticalPanel displayPanel = new VerticalPanel();
 
         //init labels
-        this.orderLabel = new Label(); //getränk wählen
+        this.orderLabel = new Label();    // getränk wählen
         this.dueMoneyLabel = new Label(); // restbetrag
-        this.changeLabel = new Label(); // wechsel geld
+        this.changeLabel = new Label();   // wechsel geld
 
         //add order and due money labels to display panel
         displayPanel.add(this.orderLabel);
@@ -56,16 +57,18 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //WICHTIG: display panel wird dem mainpanel geadded
         mainPanel.add(displayPanel);
-//
+
         //Create VerticalPanel for take button
         VerticalPanel takePanel = new VerticalPanel();
 
         //create and add take button
         takePanel.add(this.createTakeButton());
 
+        borderize(takePanel);
+
         //WICHTIG: takePanel wird dem mainpanel geadded
         mainPanel.add(takePanel);
-//
+
         // Display bottles that can be selected by the customer
 
         //create panel for bottles
@@ -107,7 +110,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         this.initWidget(mainPanel);
 
-
         // Init update handler that reacts to model changes
 
         this.updateHandler = new SodaMachineUpdateHandler() {
@@ -130,11 +132,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
             }
 
             @Override
-            public void onChaingeUpdate(double dueMoney){
+            public void onChaingeUpdate(double dueMoney) {
 
-                if(dueMoney < 0){
+                if (dueMoney < 0) {
 
-                    double value = Math.round((sodaMachine.getPayedValue() - sodaMachine.getBottleOrdered().getPrice())*100.0)/100.0;
+                    double value = Math.round((sodaMachine.getPayedValue() - sodaMachine.getBottleOrdered().getPrice()) * 100.0) / 100.0;
 
                     changeLabel.setText("Wechselgeld: " + String.valueOf(value) + " €");
                     dueMoneyLabel.setText("Restbetrag: 0 €");
@@ -170,6 +172,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                 public void onClick(ClickEvent clickEvent) {
                     if (sodaMachine.getPayedValue() >= sodaMachine.getBottleOrdered().getPrice()){
 
+                        sodaMachine.getInventory().decreaseInventory(sodaMachine.getBottleOrdered().getName());
+
                         sodaMachine.reset();
 
                     }
@@ -194,12 +198,14 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        // TODO check if there is a bottle left
-                        // sodaMachine.getInventory()...
-                        sodaMachine.getInventory();
-                        sodaMachine.reset();
+                        if (sodaMachine.getInventory().getInventory("Cola") == 0)
+                        {
+                            orderLabel.setText("Ist leer");
+                        } else {
+                            sodaMachine.orderBottle(new ColaBottle());
+                        }
+//                        sodaMachine.reset();
 
-                        sodaMachine.orderBottle(new ColaBottle());
                     }
                 });
 
@@ -222,10 +228,13 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        sodaMachine.getInventory();
-                        sodaMachine.reset();
+                        if (sodaMachine.getInventory().getInventory("Fanta") == 0)
+                        {
+                            orderLabel.setText("Ist leer");
+                        } else {
+                            sodaMachine.orderBottle(new FantaBottle());
+                        }
 
-                        sodaMachine.orderBottle(new FantaBottle());
                     }
                 });
 
@@ -241,9 +250,13 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        sodaMachine.getInventory();
-                        sodaMachine.reset();
-                        sodaMachine.orderBottle(new MezzoMixBottle());
+                        if (sodaMachine.getInventory().getInventory("MezzoMix") == 0)
+                        {
+                            orderLabel.setText("Ist leer");
+                        } else {
+                            sodaMachine.orderBottle(new MezzoMixBottle());
+                        }
+
                     }
                 });
 
@@ -258,9 +271,13 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        sodaMachine.getInventory();
-                        sodaMachine.reset();
-                        sodaMachine.orderBottle(new SpriteBottle());
+                        if (sodaMachine.getInventory().getInventory("Sprite") == 0)
+                        {
+                            orderLabel.setText("Ist leer");
+                        } else {
+                            sodaMachine.orderBottle(new SpriteBottle());
+                        }
+
                     }
                 });
 
@@ -275,9 +292,13 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        sodaMachine.getInventory();
-                        sodaMachine.reset();
-                        sodaMachine.orderBottle(new WaterBottle());
+                        if (sodaMachine.getInventory().getInventory("Sprite") == 0)
+                        {
+                            orderLabel.setText("Ist leer");
+                        } else {
+                            sodaMachine.orderBottle(new WaterBottle());
+                        }
+
                     }
                 });
 
@@ -313,7 +334,12 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                sodaMachine.insertCoin(new TenCentCoin());
+
+                if (sodaMachine.getBottleOrdered() == null) {} else {
+
+                    sodaMachine.insertCoin(new TenCentCoin());
+
+                }
             }
         });
 
@@ -330,7 +356,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                sodaMachine.insertCoin(new TwentyCentCoin());
+                if (sodaMachine.getBottleOrdered() == null) {} else {
+                    sodaMachine.insertCoin(new TwentyCentCoin());
+                }
             }
         });
 
@@ -344,7 +372,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                sodaMachine.insertCoin(new FiftyCentCoin());
+                if (sodaMachine.getBottleOrdered() == null) {} else {
+                    sodaMachine.insertCoin(new FiftyCentCoin());
+                }
             }
         });
 
@@ -357,7 +387,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                sodaMachine.insertCoin(new OneEuroCoin());
+                if (sodaMachine.getBottleOrdered() == null) {} else {
+                    sodaMachine.insertCoin(new OneEuroCoin());
+                }
             }
         });
 
@@ -370,7 +402,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                sodaMachine.insertCoin(new TwoEuroCoin());
+                if (sodaMachine.getBottleOrdered() == null) {} else {
+                    sodaMachine.insertCoin(new TwoEuroCoin());
+                }
             }
         });
 
