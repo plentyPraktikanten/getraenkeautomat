@@ -12,7 +12,7 @@ import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.*;
 import sun.java2d.loops.DrawLine;
-
+import java.awt.Dimension;
 import java.util.Iterator;
 
 /**
@@ -100,12 +100,12 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         primaryPanel2.setBorderWidth(2);
         primaryPanel1.setBorderWidth(2);
 
-        primaryPanel1.setPixelSize(250, 350);
-        primaryPanel2.setPixelSize(250, 350);
+        primaryPanel1.setPixelSize(200, 150);
+        primaryPanel2.setPixelSize(210, 220);
 
         //WICHTIG: display panel wird dem Primary panel 1 geadded
         primaryPanel1.add(displayPanel);
-            borderize(displayPanel);
+        borderize(displayPanel);
 
         //WICHTIG: money Panel wird dem primary Panel 1 geadded
         primaryPanel1.add(moneyPanel);
@@ -175,12 +175,17 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
      */
     private static void borderize(IsWidget widget) {
         widget.asWidget().getElement().getStyle().setBorderWidth(3, Style.Unit.PX);
-        widget.asWidget().getElement().getStyle().setMargin(6, Style.Unit.PX);
+        widget.asWidget().getElement().getStyle().setMargin(3, Style.Unit.PX);
     }
 
     private IsWidget createTakeButton() {
+
+
         //create take button
         Button button = new Button("Getränk und Wechselgeld nehmen");
+
+        button.setPixelSize(250,50);
+
 
         //add click handler to button
         button.addClickHandler(
@@ -208,7 +213,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //create cola button
         Button button = new Button("Cola");
-
+        button.setPixelSize(200,42);
         //add click handler to button
         button.addClickHandler(
                 new ClickHandler() {
@@ -239,7 +244,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createFantaButton() {
 
         Button button = new Button("Fanta");
-
+        button.setPixelSize(200,42);
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -260,7 +265,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createMezzoMixButton() {
         Button button = new Button("MezzoMix");
-
+        button.setPixelSize(200,42);
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -282,7 +287,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createSpriteButton() {
         Button button = new Button("Sprite");
-
+        button.setPixelSize(200,42);
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -303,7 +308,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createWaterButton() {
         Button button = new Button("Wasser");
-
+        button.setPixelSize(200,40);
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -328,6 +333,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createEjectMoneyButton() {
         Button button = new Button("Abbrechen, Geld ausgeben");
 
+        button.setPixelSize(250,50);
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -347,7 +354,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createTenCentCoinButton() {
 
         Button button = new Button(TenCentCoin.VALUE + " €");
-
+        button.setPixelSize(50,30);
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -369,7 +376,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createTwentyCentCoinButton() {
 
         Button button = new Button(TwentyCentCoin.VALUE + " €");
-
+        button.setPixelSize(50,30);
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -385,7 +392,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createFiftyCentCoinButton() {
 
         Button button = new Button(FiftyCentCoin.VALUE + " €");
-
+        button.setPixelSize(50,30);
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -400,7 +407,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createOneEuroCoinButton() {
         Button button = new Button(OneEuroCoin.VALUE + " €");
-
+        button.setPixelSize(50,30);
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -416,7 +423,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createTwoEuroCoinButton() {
         Button button = new Button(TwoEuroCoin.VALUE + " €");
-
+        button.setPixelSize(50,30);
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
