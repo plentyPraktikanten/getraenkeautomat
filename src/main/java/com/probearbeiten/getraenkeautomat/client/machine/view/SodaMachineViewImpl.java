@@ -11,6 +11,7 @@ import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandle
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.*;
+import sun.java2d.loops.DrawLine;
 
 import java.util.Iterator;
 
@@ -35,7 +36,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         this.sodaMachine = sodaMachine;
 
         // create vertical panel for all other panels
-        VerticalPanel mainPanel = new VerticalPanel();
+        //VerticalPanel mainPanel = new VerticalPanel();
+        HorizontalPanel mainPanel = new HorizontalPanel();
+
+        VerticalPanel primaryPanel1 = new VerticalPanel();
+        VerticalPanel primaryPanel2 = new VerticalPanel();
 
         // Show some data displays for the customers
 
@@ -52,22 +57,12 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         displayPanel.add(this.dueMoneyLabel);
         displayPanel.add(this.changeLabel);
 
-        //add border to display panel
-        borderize(displayPanel);
-
-        //WICHTIG: display panel wird dem mainpanel geadded
-        mainPanel.add(displayPanel);
-
         //Create VerticalPanel for take button
         VerticalPanel takePanel = new VerticalPanel();
 
         //create and add take button
         takePanel.add(this.createTakeButton());
 
-        borderize(takePanel);
-
-        //WICHTIG: takePanel wird dem mainpanel geadded
-        mainPanel.add(takePanel);
 
         // Display bottles that can be selected by the customer
 
@@ -81,18 +76,10 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         bottlePanel.add(this.createSpriteButton());
         bottlePanel.add(this.createWaterButton());
 
-        //add border
-        borderize(bottlePanel);
-
-        //WICHTIG bottle panel dem main panel adden
-        mainPanel.add(bottlePanel);
-
         // Show some buttons for money insertion etc
 
         VerticalPanel controlPanel = new VerticalPanel();
         controlPanel.add(this.createEjectMoneyButton());
-        borderize(controlPanel);
-        mainPanel.add(controlPanel);
 
         // For the money
 
@@ -102,10 +89,40 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         moneyPanel.add(this.createFiftyCentCoinButton());
         moneyPanel.add(this.createOneEuroCoinButton());
         moneyPanel.add(this.createTwoEuroCoinButton());
-        borderize(moneyPanel);
-        mainPanel.add(moneyPanel);
 
 
+        // Add all the mainPanel & create layout
+//
+        //Wichtig: primaryPanel1 & primaryPanel2 wird dem Main panel geadded
+        mainPanel.add(primaryPanel1);
+        mainPanel.add(primaryPanel2);
+
+        primaryPanel2.setBorderWidth(2);
+        primaryPanel1.setBorderWidth(2);
+
+        primaryPanel1.setPixelSize(250, 350);
+        primaryPanel2.setPixelSize(250, 350);
+
+        //WICHTIG: display panel wird dem Primary panel 1 geadded
+        primaryPanel1.add(displayPanel);
+            borderize(displayPanel);
+
+        //WICHTIG: money Panel wird dem primary Panel 1 geadded
+        primaryPanel1.add(moneyPanel);
+            borderize(moneyPanel);
+
+        //WICHTIG: takePanel wird dem Primary panel 1 geadded
+        primaryPanel1.add(takePanel);
+            borderize(takePanel);
+
+        //WICHTIG: control Panel wird dem Primary Panel 1 geadded
+        primaryPanel1.add(controlPanel);
+            borderize(controlPanel);
+
+        //WICHTIG: bottle panel dem Primary panel 2 adden
+        primaryPanel2.add(bottlePanel);
+            borderize(bottlePanel);
+//
         // Set widget for this composite
 
         this.initWidget(mainPanel);
