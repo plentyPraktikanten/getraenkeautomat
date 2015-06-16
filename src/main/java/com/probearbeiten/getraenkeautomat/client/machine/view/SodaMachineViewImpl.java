@@ -292,7 +292,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        if (sodaMachine.getInventory().getInventory("Sprite") == 0)
+                        if (sodaMachine.getInventory().getInventory("Water") == 0)
                         {
                             orderLabel.setText("Ist leer");
                         } else {
