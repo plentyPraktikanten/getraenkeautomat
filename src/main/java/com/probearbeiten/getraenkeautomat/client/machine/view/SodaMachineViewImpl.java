@@ -11,9 +11,6 @@ import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandle
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
 import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.*;
-import sun.java2d.loops.DrawLine;
-
-import java.util.Iterator;
 
 /**
  * Implementation of {@link SodaMachineView}.
@@ -105,23 +102,24 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //WICHTIG: display panel wird dem Primary panel 1 geadded
         primaryPanel1.add(displayPanel);
-            borderize(displayPanel);
+            //borderize(displayPanel);
 
         //WICHTIG: money Panel wird dem primary Panel 1 geadded
         primaryPanel1.add(moneyPanel);
-            borderize(moneyPanel);
+            //borderize(moneyPanel);
 
         //WICHTIG: takePanel wird dem Primary panel 1 geadded
         primaryPanel1.add(takePanel);
-            borderize(takePanel);
+            //borderize(takePanel);
 
         //WICHTIG: control Panel wird dem Primary Panel 1 geadded
         primaryPanel1.add(controlPanel);
-            borderize(controlPanel);
+            //borderize(controlPanel);
 
         //WICHTIG: bottle panel dem Primary panel 2 adden
         primaryPanel2.add(bottlePanel);
             borderize(bottlePanel);
+
 //
         // Set widget for this composite
 
@@ -209,14 +207,15 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //create cola button
         Button button = new Button("Cola");
 
+        button.setPixelSize(195, 65);
+
         //add click handler to button
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        if (sodaMachine.getInventory().getInventory("Cola") == 0)
-                        {
+                        if (sodaMachine.getInventory().getInventory("Cola") == 0) {
                             orderLabel.setText("Ist leer");
                         } else {
                             sodaMachine.orderBottle(new ColaBottle());
@@ -229,16 +228,14 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
-
-    private void updateAvailable() {
-    }
-
     /**
      * @return Button for Fanta
      */
     private IsWidget createFantaButton() {
 
         Button button = new Button("Fanta");
+
+        button.setPixelSize(195, 65);
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -261,6 +258,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createMezzoMixButton() {
         Button button = new Button("MezzoMix");
 
+        button.setPixelSize(195, 65);
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -283,6 +281,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createSpriteButton() {
         Button button = new Button("Sprite");
 
+        button.setPixelSize(195, 65);
+
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -303,6 +303,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createWaterButton() {
         Button button = new Button("Wasser");
+
+        button.setPixelSize(195, 65);
 
         button.addClickHandler(
                 new ClickHandler() {
