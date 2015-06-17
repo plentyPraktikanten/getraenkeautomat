@@ -1,22 +1,13 @@
 package com.probearbeiten.getraenkeautomat.client.machine.view;
 
-import com.google.gwt.dev.shell.BrowserChannel;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.*;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachine;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandler;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
-import com.probearbeiten.getraenkeautomat.client.machine.inventory.Inventory;
 import com.probearbeiten.getraenkeautomat.client.money.*;
-<<<<<<< HEAD
-=======
-import sun.java2d.loops.DrawLine;
-import java.awt.Dimension;
-import java.util.Iterator;
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
 
 /**
  * Implementation of {@link SodaMachineView}.
@@ -96,39 +87,39 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         // Add all the mainPanel & create layout
 //
+        VerticalPanel primaryPrimaryPanel = new VerticalPanel();
+
         //Wichtig: primaryPanel1 & primaryPanel2 wird dem Main panel geadded
         mainPanel.add(primaryPanel1);
         mainPanel.add(primaryPanel2);
 
+
         primaryPanel2.setBorderWidth(2);
         primaryPanel1.setBorderWidth(2);
 
-        primaryPanel1.setPixelSize(200, 150);
-        primaryPanel2.setPixelSize(210, 220);
+        //primaryPanel1.setPixelSize(250, 350);
+        //primaryPanel2.setPixelSize(250, 350);
 
         //WICHTIG: display panel wird dem Primary panel 1 geadded
         primaryPanel1.add(displayPanel);
-<<<<<<< HEAD
-            //borderize(displayPanel);
-=======
-        borderize(displayPanel);
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
+            displayPanel.setBorderWidth(2);
+            displayPanel.setPixelSize(265,70);
 
-        //WICHTIG: money Panel wird dem primary Panel 1 geadded
+        //WICHTIG: money Panel word dem primary panel 1 geadded
         primaryPanel1.add(moneyPanel);
-            //borderize(moneyPanel);
+            moneyPanel.setBorderWidth(2);
 
-        //WICHTIG: takePanel wird dem Primary panel 1 geadded
-        primaryPanel1.add(takePanel);
-            //borderize(takePanel);
+        //WICHIG: take Panel wird primary Primary Panel geadded
+        primaryPrimaryPanel.add(takePanel);
 
-        //WICHTIG: control Panel wird dem Primary Panel 1 geadded
-        primaryPanel1.add(controlPanel);
-            //borderize(controlPanel);
+        //WICHTIG: control Panel wird primary Primary Panel geadded
+        primaryPrimaryPanel.add(controlPanel);
 
-        //WICHTIG: bottle panel dem Primary panel 2 adden
+        //WICHTIG: bottle Panel wird primary Panel 2 geadded
         primaryPanel2.add(bottlePanel);
-            borderize(bottlePanel);
+
+        //WICHTIG: primary Primary Panel wird primary Panel 1 geadded
+        primaryPanel1.add(primaryPrimaryPanel);
 
 //
         // Set widget for this composite
@@ -192,7 +183,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //create take button
         Button button = new Button("Getränk und Wechselgeld nehmen");
 
-        button.setPixelSize(250,50);
+        button.setPixelSize(265,59);
 
 
         //add click handler to button
@@ -221,13 +212,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         //create cola button
         Button button = new Button("Cola");
-<<<<<<< HEAD
 
-        button.setPixelSize(195, 65);
+        //button.setPixelSize(195, 65);
 
-=======
-        button.setPixelSize(200,42);
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
+        button.setPixelSize(200,46);
+
         //add click handler to button
         button.addClickHandler(
                 new ClickHandler() {
@@ -239,8 +228,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                         } else {
                             sodaMachine.orderBottle(new ColaBottle());
                         }
-//                        sodaMachine.reset();
-
                     }
                 });
 
@@ -253,13 +240,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createFantaButton() {
 
         Button button = new Button("Fanta");
-<<<<<<< HEAD
 
-        button.setPixelSize(195, 65);
+  //      button.setPixelSize(195, 65);
 
-=======
-        button.setPixelSize(200,42);
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
+        button.setPixelSize(200,46);
+
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -280,12 +265,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createMezzoMixButton() {
         Button button = new Button("MezzoMix");
-<<<<<<< HEAD
 
-        button.setPixelSize(195, 65);
-=======
-        button.setPixelSize(200,42);
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
+   //     button.setPixelSize(195, 65);
+        button.setPixelSize(200,46);
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -307,13 +289,10 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createSpriteButton() {
         Button button = new Button("Sprite");
-<<<<<<< HEAD
 
-        button.setPixelSize(195, 65);
+        //button.setPixelSize(195, 65);
+        button.setPixelSize(200,46);
 
-=======
-        button.setPixelSize(200,42);
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -334,13 +313,10 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createWaterButton() {
         Button button = new Button("Wasser");
-<<<<<<< HEAD
 
-        button.setPixelSize(195, 65);
+        //button.setPixelSize(195, 65);
+        button.setPixelSize(200,44);
 
-=======
-        button.setPixelSize(200,40);
->>>>>>> 265e6c9ba2e0904349195ed89b5a67b99c727dc2
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
@@ -365,7 +341,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createEjectMoneyButton() {
         Button button = new Button("Abbrechen, Geld ausgeben");
 
-        button.setPixelSize(250,50);
+        button.setPixelSize(265,59);
 
         button.addClickHandler(new ClickHandler() {
             @Override
@@ -391,7 +367,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
             @Override
             public void onClick(ClickEvent clickEvent) {
 
-                if (sodaMachine.getBottleOrdered() == null) {} else {
+                if (sodaMachine.getBottleOrdered() != null) {
 
                     sodaMachine.insertCoin(new TenCentCoin());
 
@@ -412,7 +388,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                if (sodaMachine.getBottleOrdered() == null) {} else {
+                if (sodaMachine.getBottleOrdered() != null) {
                     sodaMachine.insertCoin(new TwentyCentCoin());
                 }
             }
@@ -428,7 +404,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                if (sodaMachine.getBottleOrdered() == null) {} else {
+                if (sodaMachine.getBottleOrdered() != null) {
                     sodaMachine.insertCoin(new FiftyCentCoin());
                 }
             }
@@ -459,7 +435,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                if (sodaMachine.getBottleOrdered() == null) {} else {
+                if (sodaMachine.getBottleOrdered() != null) {
                     sodaMachine.insertCoin(new TwoEuroCoin());
                 }
             }
