@@ -1,9 +1,11 @@
 package com.probearbeiten.getraenkeautomat.client.machine.view;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.*;
+import com.probearbeiten.getraenkeautomat.client.Css.GetraenkeAutomatAppearance;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachine;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandler;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
@@ -23,6 +25,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private Label orderLabel;
     private Label changeLabel;
 
+    private GetraenkeAutomatAppearance appearance = GWT.create(GetraenkeAutomatAppearance.class);
+
     //constructor
     public SodaMachineViewImpl(final SodaMachine sodaMachine) {
 
@@ -30,7 +34,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         this.sodaMachine = sodaMachine;
 
         // create vertical panel for all other panels
-        //VerticalPanel mainPanel = new VerticalPanel();
         HorizontalPanel mainPanel = new HorizontalPanel();
 
         VerticalPanel primaryPanel1 = new VerticalPanel();
@@ -97,13 +100,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         primaryPanel2.setBorderWidth(2);
         primaryPanel1.setBorderWidth(2);
 
-        //primaryPanel1.setPixelSize(250, 350);
-        //primaryPanel2.setPixelSize(250, 350);
 
         //WICHTIG: display panel wird dem Primary panel 1 geadded
         primaryPanel1.add(displayPanel);
             displayPanel.setBorderWidth(2);
-            displayPanel.setPixelSize(265,70);
+            displayPanel.addStyleName(appearance.getCss().displayPanelSize());
 
         //WICHTIG: money Panel word dem primary panel 1 geadded
         primaryPanel1.add(moneyPanel);
@@ -183,7 +184,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //create take button
         Button button = new Button("Getränk und Wechselgeld nehmen");
 
-        button.setPixelSize(265,59);
+        button.addStyleName(appearance.getCss().buttonEjectTake());
 
 
         //add click handler to button
@@ -213,9 +214,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //create cola button
         Button button = new Button("Cola");
 
-        //button.setPixelSize(195, 65);
-
-        button.setPixelSize(200,46);
+        button.addStyleName(appearance.getCss().buttonGetraenke());
 
         //add click handler to button
         button.addClickHandler(
@@ -241,9 +240,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
         Button button = new Button("Fanta");
 
-  //      button.setPixelSize(195, 65);
-
-        button.setPixelSize(200,46);
+        button.addStyleName(appearance.getCss().buttonGetraenke());
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -266,8 +263,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createMezzoMixButton() {
         Button button = new Button("MezzoMix");
 
-   //     button.setPixelSize(195, 65);
-        button.setPixelSize(200,46);
+        button.addStyleName(appearance.getCss().buttonGetraenke());
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -290,8 +286,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createSpriteButton() {
         Button button = new Button("Sprite");
 
-        //button.setPixelSize(195, 65);
-        button.setPixelSize(200,46);
+        button.addStyleName(appearance.getCss().buttonGetraenke());
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -314,8 +309,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createWaterButton() {
         Button button = new Button("Wasser");
 
-        //button.setPixelSize(195, 65);
-        button.setPixelSize(200,44);
+        button.addStyleName(appearance.getCss().buttonGetraenke());
 
         button.addClickHandler(
                 new ClickHandler() {
@@ -341,7 +335,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createEjectMoneyButton() {
         Button button = new Button("Abbrechen, Geld ausgeben");
 
-        button.setPixelSize(265,59);
+        button.addStyleName(appearance.getCss().buttonEjectTake());
 
         button.addClickHandler(new ClickHandler() {
             @Override
@@ -362,7 +356,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createTenCentCoinButton() {
 
         Button button = new Button(TenCentCoin.VALUE + " €");
-        button.setPixelSize(50,30);
+        button.addStyleName(appearance.getCss().buttonMoney());
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -384,7 +378,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createTwentyCentCoinButton() {
 
         Button button = new Button(TwentyCentCoin.VALUE + " €");
-        button.setPixelSize(50,30);
+        button.addStyleName(appearance.getCss().buttonMoney());
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -400,7 +394,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createFiftyCentCoinButton() {
 
         Button button = new Button(FiftyCentCoin.VALUE + " €");
-        button.setPixelSize(50,30);
+        button.addStyleName(appearance.getCss().buttonMoney());
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -415,7 +409,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createOneEuroCoinButton() {
         Button button = new Button(OneEuroCoin.VALUE + " €");
-        button.setPixelSize(50,30);
+        button.addStyleName(appearance.getCss().buttonMoney());
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -431,7 +425,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createTwoEuroCoinButton() {
         Button button = new Button(TwoEuroCoin.VALUE + " €");
-        button.setPixelSize(50,30);
+        button.addStyleName(appearance.getCss().buttonMoney());
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
