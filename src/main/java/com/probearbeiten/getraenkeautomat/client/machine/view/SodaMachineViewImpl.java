@@ -237,9 +237,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //create cola button
         PushButton button = new PushButton(image);
 
-
-
         button.addStyleName(appearance.getCss().buttonGetraenke());
+
+
 
 
         //add click handler to button

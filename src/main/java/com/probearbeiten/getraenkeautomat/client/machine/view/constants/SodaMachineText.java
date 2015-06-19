@@ -7,7 +7,6 @@ import com.google.gwt.i18n.client.Messages;
  */
 public interface SodaMachineText extends Messages
 {
-
     String abbrechen();
     String nehmen();
     String wechselgeld();
@@ -16,8 +15,4 @@ public interface SodaMachineText extends Messages
     String gewählt();
     String rest();
     String keinrest();
-
-
-
-
 }
