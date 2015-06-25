@@ -8,7 +8,7 @@ package com.probearbeiten.getraenkeautomat.client.machine.bottle;
 public class Bottle {
 
     private String name = "";
-    private double price = 0.0;
+    private double price = 0.00;
 
     /**
      * The beverage's name, e.g. "Cola". <b>The name has to be unique!</b>

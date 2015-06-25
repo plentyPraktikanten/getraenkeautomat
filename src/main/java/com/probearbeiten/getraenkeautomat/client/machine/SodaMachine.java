@@ -86,6 +86,9 @@ public class SodaMachine {
     /**
      * @return The current value of the sum of inserted coins.
      */
+
+
+
     public double getPayedValue() {
         double result = 0.0;
 
@@ -112,10 +115,9 @@ public class SodaMachine {
             dueMoney -= dueMoney;
         }*/
 
-        String value = NumberFormat.getFormat("00.00").format(dueMoney);
+        String value = NumberFormat.getFormat("0.0").format(dueMoney);
 
-
-        this.updateHandler.onCoinUpdate(this.getBottleOrdered(), Double.valueOf(value), this.getPayedValue());
+        this.updateHandler.onCoinUpdate(this.getBottleOrdered(), dueMoney, this.getPayedValue());
 
         this.updateHandler.onChangeUpdate(dueMoney);
     }
