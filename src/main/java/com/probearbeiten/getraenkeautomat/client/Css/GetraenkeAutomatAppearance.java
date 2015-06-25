@@ -16,10 +16,15 @@ public class GetraenkeAutomatAppearance
 
 	public interface GetraenkeautomatCss extends CssResource
 	{
+		String change();
 		String buttonGetraenke();
 		String buttonEjectTake();
 		String buttonMoney();
-		String displayPanelSize();
+		String displayPanel();
+		String marginMain();
+		String orderMoney();
+
+		String primaryPanel();
 
 	}
 

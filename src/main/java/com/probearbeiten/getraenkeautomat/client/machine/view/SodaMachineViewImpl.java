@@ -59,17 +59,21 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         this.dueMoneyLabel = new Label(); // restbetrag
         this.changeLabel = new Label();   // wechselgeld
 
+
         //add order and due money labels to display panel
         displayPanel.add(this.orderLabel);
         displayPanel.add(this.dueMoneyLabel);
         displayPanel.add(this.changeLabel);
+
+        orderLabel.addStyleName(appearance.getCss().orderMoney());
+        dueMoneyLabel.addStyleName(appearance.getCss().orderMoney());
+        changeLabel.addStyleName(appearance.getCss().change());
 
         //Create VerticalPanel for take button
         VerticalPanel takePanel = new VerticalPanel();
 
         //create and add take button
         takePanel.add(this.createTakeButton());
-
 
         // Display bottles that can be selected by the customer
 
@@ -102,6 +106,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //  HorizontalPanel destroyPanel = new HorizontalPanel();
         //  destroyPanel.add(this.createSelbstzerstörungButton());
         VerticalPanel drinkPanel = new VerticalPanel();
+
+        // Add all the mainPanel & create layout
+      //  HorizontalPanel destroyPanel = new HorizontalPanel();
+      //  destroyPanel.add(this.createSelbstzerstörungButton());
+
 //      Add all the mainPanel & create layout
         VerticalPanel primaryPrimaryPanel = new VerticalPanel();
 
@@ -109,22 +118,20 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         mainPanel.add(primaryPanel1);
         mainPanel.add(primaryPanel2);
 
+        mainPanel.addStyleName(appearance.getCss().marginMain());
 
-        primaryPanel2.setBorderWidth(2);
-        primaryPanel1.setBorderWidth(2);
+
+        primaryPanel1.addStyleName(appearance.getCss().primaryPanel());
+        primaryPanel2.addStyleName(appearance.getCss().primaryPanel());
 
 
         //WICHTIG: display panel wird dem Primary panel 1 geadded
         primaryPanel1.add(displayPanel);
-
-
-        displayPanel.setBorderWidth(2);
-        displayPanel.addStyleName(appearance.getCss().displayPanelSize());
-
+        displayPanel.addStyleName(appearance.getCss().displayPanel());
 
         //WICHTIG: money Panel word dem primary panel 1 geadded
         primaryPanel1.add(moneyPanel);
-        moneyPanel.setBorderWidth(2);
+
 
         //WICHIG: take Panel wird primary Primary Panel geadded
         primaryPrimaryPanel.add(takePanel);
@@ -213,16 +220,6 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
 
 
-
-    /**
-     * Styling
-     *
-     * @param widget
-     */
-    private static void borderize(IsWidget widget) {
-        widget.asWidget().getElement().getStyle().setBorderWidth(3, Style.Unit.PX);
-        widget.asWidget().getElement().getStyle().setMargin(3, Style.Unit.PX);
-    }
 
     private IsWidget createTakeButton() {
 

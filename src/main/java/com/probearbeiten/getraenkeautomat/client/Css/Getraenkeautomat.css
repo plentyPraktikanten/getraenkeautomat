@@ -1,6 +1,10 @@
+.change {
+    padding-left: 3px;
+}
+
 .buttonGetraenke {
-    //width: 200px;
-   // height: 50px;
+    width: 200px;
+    height: 50px;
 }
 
 .buttonEjectTake {
@@ -8,12 +12,45 @@
     height: 60px;
 }
 
-.buttonMoney {
-    width: 50px;
-    height: 30px;
+.buttonGetraenke {
+    width: 200px;
+    height: 50px;
 }
 
-.displayPanelSize {
+.buttonMoney {
+    width: 53px;
+    height: 30px;
+
+    border-style: ridge;
+    border-color: gray;
+    border-width: 3px;
+}
+
+.displayPanel {
     width: 265px;
     height: 70px;
+    border: 3px;
+    border-style: ridge;
+    border-color: gray;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.marginMain {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.orderMoney {
+
+    border-style: ridge;
+    border-color: transparent;
+    border-bottom-color: darkgray;
+    border-width: 3px;
+}
+
+.primaryPanel {
+    border-style: ridge;
+    border-color: gray;
+    border-width: 3px;
 }
