@@ -2,6 +2,11 @@
     padding-left: 3px;
 }
 
+.buttonGetraenke {
+    width: 200px;
+    height: 50px;
+}
+
 .buttonEjectTake {
     width: 265px;
     height: 60px;

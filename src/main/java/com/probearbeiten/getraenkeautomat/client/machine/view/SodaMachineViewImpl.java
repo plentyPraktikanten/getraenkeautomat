@@ -4,11 +4,15 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+
 import com.google.gwt.user.client.ui.*;
+import com.probearbeiten.getraenkeautomat.client.images.SodamachineResources;
 import com.probearbeiten.getraenkeautomat.client.Css.GetraenkeAutomatAppearance;
+
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachine;
 import com.probearbeiten.getraenkeautomat.client.machine.SodaMachineUpdateHandler;
 import com.probearbeiten.getraenkeautomat.client.machine.bottle.*;
+import com.probearbeiten.getraenkeautomat.client.machine.view.constants.SodaMachineText;
 import com.probearbeiten.getraenkeautomat.client.money.*;
 
 /**
@@ -24,6 +28,10 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private Label dueMoneyLabel;
     private Label orderLabel;
     private Label changeLabel;
+
+    private SodamachineResources resources = GWT.create(SodamachineResources.class);
+    private SodaMachineText text = GWT.create(SodaMachineText.class);
+
 
     private GetraenkeAutomatAppearance appearance = GWT.create(GetraenkeAutomatAppearance.class);
 
@@ -47,7 +55,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //init labels
         this.orderLabel = new Label();    // getränk wählen
         this.dueMoneyLabel = new Label(); // restbetrag
-        this.changeLabel = new Label();   // wechsel geld
+        this.changeLabel = new Label();   // wechselgeld
 
 
         //add order and due money labels to display panel
@@ -91,11 +99,14 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         moneyPanel.add(this.createOneEuroCoinButton());
         moneyPanel.add(this.createTwoEuroCoinButton());
 
-
+        //selbstzerstörung
 
 
         // Add all the mainPanel & create layout
-//
+      //  HorizontalPanel destroyPanel = new HorizontalPanel();
+      //  destroyPanel.add(this.createSelbstzerstörungButton());
+
+//      Add all the mainPanel & create layout
         VerticalPanel primaryPrimaryPanel = new VerticalPanel();
 
         //Wichtig: primaryPanel1 & primaryPanel2 wird dem Main panel geadded
@@ -116,6 +127,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //WICHTIG: money Panel word dem primary panel 1 geadded
         primaryPanel1.add(moneyPanel);
 
+
         //WICHIG: take Panel wird primary Primary Panel geadded
         primaryPrimaryPanel.add(takePanel);
 
@@ -128,6 +140,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         //WICHTIG: primary Primary Panel wird primary Panel 1 geadded
         primaryPanel1.add(primaryPrimaryPanel);
 
+   //     primaryPanel2.add(destroyPanel);
 //
         // Set widget for this composite
 
@@ -140,17 +153,17 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
             @Override
             public void onOrderUpdate(Bottle bottle) {
                 if (bottle != null) {
-                    orderLabel.setText("Getränk ausgewählt: " + bottle.getName() +
+                    orderLabel.setText(text.gewählt() + bottle.getName() +
                             " (" + bottle.getPrice() + " €)");
                 } else {
-                    orderLabel.setText("Getränk: Bitte wählen …");
+                    orderLabel.setText(text.wählen());
                 }
             }
 
             @Override
             public void onCoinUpdate(Bottle bottle, double dueMoney, double payedMoney) {
 
-                dueMoneyLabel.setText("Restbetrag: " + String.valueOf(dueMoney) + " €");
+                dueMoneyLabel.setText(text.rest() + String.valueOf(dueMoney) + " €");
 
             }
 
@@ -161,8 +174,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
                     double value = Math.round((sodaMachine.getPayedValue() - sodaMachine.getBottleOrdered().getPrice()) * 100.0) / 100.0;
 
-                    changeLabel.setText("Wechselgeld: " + String.valueOf(value) + " €");
-                    dueMoneyLabel.setText("Restbetrag: 0 €");
+                    changeLabel.setText(text.wechselgeld()+ String.valueOf(value) + " €");
+                    dueMoneyLabel.setText(text.keinrest());
 
                 } else {
 
@@ -178,25 +191,29 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
 
         //create take button
-        Button button = new Button("Getränk und Wechselgeld nehmen");
+        Button button = new Button(text.nehmen());
+
+
+
 
         button.addStyleName(appearance.getCss().buttonEjectTake());
 
 
+
         //add click handler to button
         button.addClickHandler(
-            new ClickHandler() {
-                @Override
-                public void onClick(ClickEvent clickEvent) {
-                    if (sodaMachine.getPayedValue() >= sodaMachine.getBottleOrdered().getPrice()){
+                new ClickHandler() {
+                    @Override
+                    public void onClick(ClickEvent clickEvent) {
+                        if (sodaMachine.getPayedValue() >= sodaMachine.getBottleOrdered().getPrice()) {
 
-                        sodaMachine.getInventory().decreaseInventory(sodaMachine.getBottleOrdered().getName());
+                            sodaMachine.getInventory().decreaseInventory(sodaMachine.getBottleOrdered().getName());
 
-                        sodaMachine.reset();
+                            sodaMachine.reset();
 
+                        }
                     }
                 }
-            }
         );
 
         return button;
@@ -206,11 +223,17 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
      * @return Button for Cola
      */
     private IsWidget createColaButton() {
+        Image image = new Image(resources.cola());
+
+
 
         //create cola button
-        Button button = new Button("Cola");
+        PushButton button = new PushButton(image);
 
         button.addStyleName(appearance.getCss().buttonGetraenke());
+
+
+
 
         //add click handler to button
         button.addClickHandler(
@@ -219,7 +242,7 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     public void onClick(ClickEvent clickEvent) {
 
                         if (sodaMachine.getInventory().getInventory("Cola") == 0) {
-                            orderLabel.setText("Ist leer");
+                            orderLabel.setText(text.leer());
                         } else {
                             sodaMachine.orderBottle(new ColaBottle());
                         }
@@ -233,8 +256,10 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
      * @return Button for Fanta
      */
     private IsWidget createFantaButton() {
+        Image image = new Image(resources.fanta());
 
-        Button button = new Button("Fanta");
+
+        PushButton button = new PushButton(image);
 
         button.addStyleName(appearance.getCss().buttonGetraenke());
 
@@ -243,9 +268,8 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        if (sodaMachine.getInventory().getInventory("Fanta") == 0)
-                        {
-                            orderLabel.setText("Ist leer");
+                        if (sodaMachine.getInventory().getInventory("Fanta") == 0) {
+                            orderLabel.setText(text.leer());
                         } else {
                             sodaMachine.orderBottle(new FantaBottle());
                         }
@@ -257,18 +281,22 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     private IsWidget createMezzoMixButton() {
-        Button button = new Button("MezzoMix");
+        Image image = new Image(resources.mezzoMix());
+
+
+
+        PushButton button = new PushButton(image);
 
         button.addStyleName(appearance.getCss().buttonGetraenke());
+
 
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        if (sodaMachine.getInventory().getInventory("MezzoMix") == 0)
-                        {
-                            orderLabel.setText("Ist leer");
+                        if (sodaMachine.getInventory().getInventory("MezzoMix") == 0) {
+                            orderLabel.setText(text.leer());
                         } else {
                             sodaMachine.orderBottle(new MezzoMixBottle());
                         }
@@ -280,18 +308,22 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     private IsWidget createSpriteButton() {
-        Button button = new Button("Sprite");
+        Image image = new Image(resources.sprite());
+
+
+
+        PushButton button = new PushButton(image);
 
         button.addStyleName(appearance.getCss().buttonGetraenke());
+
 
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        if (sodaMachine.getInventory().getInventory("Sprite") == 0)
-                        {
-                            orderLabel.setText("Ist leer");
+                        if (sodaMachine.getInventory().getInventory("Sprite") == 0) {
+                            orderLabel.setText(text.leer());
                         } else {
                             sodaMachine.orderBottle(new SpriteBottle());
                         }
@@ -303,18 +335,21 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     }
 
     private IsWidget createWaterButton() {
-        Button button = new Button("Wasser");
+        Image image = new Image(resources.wasser());
+
+
+        PushButton button = new PushButton(image);
 
         button.addStyleName(appearance.getCss().buttonGetraenke());
+
 
         button.addClickHandler(
                 new ClickHandler() {
                     @Override
                     public void onClick(ClickEvent clickEvent) {
 
-                        if (sodaMachine.getInventory().getInventory("Water") == 0)
-                        {
-                            orderLabel.setText("Ist leer");
+                        if (sodaMachine.getInventory().getInventory("Water") == 0) {
+                            orderLabel.setText(text.leer());
                         } else {
                             sodaMachine.orderBottle(new WaterBottle());
                         }
@@ -329,9 +364,11 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
      * @return Button for money ejection
      */
     private IsWidget createEjectMoneyButton() {
-        Button button = new Button("Abbrechen, Geld ausgeben");
+        Button button = new Button(text.abbrechen());
+
 
         button.addStyleName(appearance.getCss().buttonEjectTake());
+
 
         button.addClickHandler(new ClickHandler() {
             @Override
@@ -345,6 +382,24 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
         return button;
     }
 
+/*    private IsWidget createSelbstzerstörungButton() {
+
+        PushButton button = new PushButton(new Image("http://www.singer-trauzettel.de/images/knopf_rot.jpg"));
+
+
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent clickEvent) {
+                Window.alert("DU GLAUBST NICHT WIEVIEL ARBEIT DAS WAR !!!");
+                Window.alert("UND DU WILLST ES ZERSTÖREN !!??");
+                Window.alert("Das lasse ich nicht zu!");
+
+            }
+        });
+
+        return button;
+    }
+*/
 
     /**
      * @return Ten cents button
@@ -352,7 +407,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createTenCentCoinButton() {
 
         Button button = new Button(TenCentCoin.VALUE + " €");
+
         button.addStyleName(appearance.getCss().buttonMoney());
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -374,7 +431,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createTwentyCentCoinButton() {
 
         Button button = new Button(TwentyCentCoin.VALUE + " €");
+
         button.addStyleName(appearance.getCss().buttonMoney());
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -390,7 +449,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     private IsWidget createFiftyCentCoinButton() {
 
         Button button = new Button(FiftyCentCoin.VALUE + " €");
+
         button.addStyleName(appearance.getCss().buttonMoney());
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -405,12 +466,13 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createOneEuroCoinButton() {
         Button button = new Button(OneEuroCoin.VALUE + " €");
+
         button.addStyleName(appearance.getCss().buttonMoney());
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                if (sodaMachine.getBottleOrdered() != null)
-                {
+                if (sodaMachine.getBottleOrdered() != null) {
                     sodaMachine.insertCoin(new OneEuroCoin());
                 }
             }
@@ -421,7 +483,9 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
 
     private IsWidget createTwoEuroCoinButton() {
         Button button = new Button(TwoEuroCoin.VALUE + " €");
+
         button.addStyleName(appearance.getCss().buttonMoney());
+
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
@@ -438,4 +502,5 @@ public class SodaMachineViewImpl extends Composite implements SodaMachineView {
     public SodaMachineUpdateHandler getUpdateHandler() {
         return this.updateHandler;
     }
+
 }

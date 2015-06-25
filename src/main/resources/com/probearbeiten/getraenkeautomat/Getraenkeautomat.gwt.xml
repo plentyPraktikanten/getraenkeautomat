@@ -2,6 +2,13 @@
 <module rename-to='Getraenkeautomat'>
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User' />
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+
+    <!-- English language, independent of country -->
+    <extend-property name="locale" values="en"/>
+    <extend-property name="locale" values="de"/>
+    <set-property-fallback name="locale" value="en"/>
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->
