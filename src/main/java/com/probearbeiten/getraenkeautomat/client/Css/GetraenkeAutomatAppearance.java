@@ -23,9 +23,9 @@ public class GetraenkeAutomatAppearance
 		String displayPanel();
 		String marginMain();
 		String orderMoney();
-
-		String primaryPanel();
-
+		String primaryPanel1();
+		String primaryPanel2();
+		String languageChange();
 	}
 
 	interface GetraenkeAutomatResource extends ClientBundle
