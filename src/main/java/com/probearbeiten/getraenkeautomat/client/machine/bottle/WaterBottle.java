@@ -5,7 +5,7 @@ package com.probearbeiten.getraenkeautomat.client.machine.bottle;
  */
 public class WaterBottle extends Bottle
 {
-	public static final String NAME = "Water";
+	public static final String NAME = "Wasser";
 
 	public WaterBottle() {
 		this.setName(NAME);

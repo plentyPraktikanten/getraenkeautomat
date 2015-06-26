@@ -12,17 +12,9 @@ public interface SodaMachineText extends Messages
     String abbrechen();
     String nehmen();
     String wechselgeld(String wechselmoney);
-    String nurwechselgeld();
     String leer();
     String wählen();
-    String gewählt();
+    String gewählt(String name ,String money);
     String rest(String money);
-    String nurrest();
-    String keinrest();
-    String keinwechselgeld();
-    String zehn();
-    String zwanzig();
-    String fünfzig();
-    String ein();
-    String zwei();
+    String coin(String money);
 }

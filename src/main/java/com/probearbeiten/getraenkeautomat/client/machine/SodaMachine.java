@@ -115,8 +115,6 @@ public class SodaMachine {
             dueMoney -= dueMoney;
         }*/
 
-        String value = NumberFormat.getFormat("0.0").format(dueMoney);
-
         this.updateHandler.onCoinUpdate(this.getBottleOrdered(), dueMoney, this.getPayedValue());
 
         this.updateHandler.onChangeUpdate(dueMoney);
